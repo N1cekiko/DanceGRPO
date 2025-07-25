@@ -57,6 +57,12 @@ from torch.nn import functional as F
 from typing import List
 from PIL import Image
 from diffusers import FluxTransformer2DModel, AutoencoderKL
+from fastvideo.utils.device_utils import is_npu_available
+
+if is_npu_available():
+    import torch_npu
+    from torch_npu.contrib import transfer_to_npu
+    torch.npu.config.allow_internal_format = False
 
 
 def sd3_time_shift(shift, t):
